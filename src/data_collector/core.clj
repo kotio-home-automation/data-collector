@@ -3,8 +3,15 @@
   (:require [cheshire.core :as json])
   (:gen-class))
 
+(def ruuvitag-data (transient []))
+
 (defn -main
   "I don't do a whole lot... yet. Except print ruuvitag data!"
   []
-  (let [response-body (get (client/get "http://localhost:3102/ruuvitag") :body)]
-    (println (json/decode response-body))))
+  (dotimes [n 5]
+    (let [response-body (get (client/get "http://localhost:3102/ruuvitag") :body)]
+      (conj! ruuvitag-data (json/parse-string response-body))
+    )
+  )
+  (println (json/generate-string (flatten (persistent! ruuvitag-data)) {:pretty true}))
+)
