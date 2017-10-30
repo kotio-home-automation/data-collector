@@ -9,3 +9,6 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
+/docker/data/data/
+/docker/data/meta/
+/docker/data/wal/

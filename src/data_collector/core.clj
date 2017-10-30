@@ -1,17 +1,23 @@
 (ns data-collector.core
-  (:require [clj-http.client :as client])
+  (:require [clj-http.client :as http])
   (:require [cheshire.core :as json])
+  (:require [capacitor.core :as capasitor])
   (:gen-class))
 
-(def ruuvitag-data (transient []))
+(def db (capasitor/make-client {:db "kotio" :username "kotio" :password "kotio"}))
+
+(defn write-sensor [sensor]
+  (def now (quot (System/currentTimeMillis) 1000))
+  (capasitor/write-points db
+    [{:measurement "temperature" :tags {"name" (get sensor "name")} :fields {"value" (float (get-in sensor ["data" "temperature"]))} :timestamp now}
+    {:measurement "humidity" :tags {"name" (get sensor "name")} :fields {"value" (get-in sensor ["data" "humidity"])} :timestamp now}
+    {:measurement "pressure" :tags {"name" (get sensor "name")} :fields {"value" (get-in sensor ["data" "pressure"])} :timestamp now}]))
+
+(defn save-readings [sensors]
+  (dorun (map write-sensor sensors)))
 
 (defn -main
-  "I don't do a whole lot... yet. Except print ruuvitag data!"
+  "Fetch ruuvitag data and write it to influxdb"
   []
-  (dotimes [n 5]
-    (let [response-body (get (client/get "http://localhost:3102/ruuvitag") :body)]
-      (conj! ruuvitag-data (json/parse-string response-body))
-    )
-  )
-  (println (json/generate-string (flatten (persistent! ruuvitag-data)) {:pretty true}))
-)
+  (let [response-body (get (http/get "http://pommi:3102/ruuvitag") :body)]
+    (save-readings (json/parse-string response-body))))
