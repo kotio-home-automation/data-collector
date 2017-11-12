@@ -3,10 +3,11 @@
           [data-collector.ruuvitag :as ruuvitag]
           [clj-http.client :as http]
           [cheshire.core :as json]
-          [capacitor.core :as capasitor])
+          [capacitor.core :as capasitor]
+          [config.core :as conf])
   (:gen-class))
 
-(def db (capasitor/make-client {:db "kotio" :username "kotio" :password "kotio"}))
+(def db (capasitor/make-client {:db (:db-name (conf/load-env)) :username (:db-username (conf/load-env)) :password (:db-password (conf/load-env))}))
 
 (defn- fetch-data [url]
   (try
@@ -20,9 +21,9 @@
       (catch Exception e (println "Unable to write data:" e)))))
 
 (defn -main []
-  (let [ruuvitag-data (fetch-data "http://localhost:3102/ruuvitag")
-      tellstick-sensor-data (fetch-data "http://localhost:3101/tellstick/sensors")
-      tellstick-switch-data (fetch-data "http://localhost:3101/tellstick/switches")]
+  (let [ruuvitag-data (fetch-data (:ruuvitag-url (conf/load-env)))
+      tellstick-sensor-data (fetch-data (:tellstick-sensor-url (conf/load-env)))
+      tellstick-switch-data (fetch-data (:tellstick-switch-url (conf/load-env)))]
     (save-data-points (flatten (concat
       (ruuvitag/compose-ruuvitag-readings (json/parse-string ruuvitag-data))
       (tellstick/compose-tellstick-sensor-readings (json/parse-string tellstick-sensor-data))
