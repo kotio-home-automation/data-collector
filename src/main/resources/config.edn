@@ -3,4 +3,5 @@
   :tellstick-switch-url "http://localhost:3101/tellstick/switches"
   :db-name "kotio"
   :db-username "kotio"
-  :db-password "kotio"}
+  :db-password "kotio"
+  :collecting-period 600000}

@@ -7,7 +7,8 @@
     [clj-http "3.7.0"]
     [cheshire "5.8.0"]
     [capacitor "0.6.0"]
-    [yogthos/config "0.9"]]
+    [yogthos/config "0.9"]
+    [overtone/at-at "1.2.0"]]
   :main ^:skip-aot data-collector.core
   :target-path "target/%s"
   :profiles {:dev {:resource-paths ["src/main/resources"]}

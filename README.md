@@ -1,36 +1,32 @@
 # data-collector
 
-FIXME: description
+Data collector for kotio sensors and switches.
+
+Collects sensor and swich data from kotio REST API's and saves it to [influxdb](https://www.influxdata.com/time-series-platform/influxdb/).
+
+Written in clojure.
+
+## Development and installation requirements
+
+Requires
+* Java
+* leiningen
 
 ## Installation
 
-Download from http://example.com/FIXME.
+`lein uberjar`
+
+## Usage requirements
+
+Requires kotio REST API's for ruuvitag and tellstick, influxdb, Java.
 
 ## Usage
 
-FIXME: explanation
+Copy [configuration file template](src/main/resources/config.edn) to your preferred location and adjust configuration settings as needed.
 
-    $ java -jar data-collector-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
+Run the jar with configuration file parameter `java -Dconfig=your-config-file -jar data-collector-0.1.0-standalone.jar``
 ## License
 
-Copyright © 2017 FIXME
+Copyright © 2017 Jori Lytter
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the MIT License.
