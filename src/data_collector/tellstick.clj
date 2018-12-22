@@ -1,7 +1,7 @@
 (ns data-collector.tellstick)
 
 (defn- parse-humidity [sensor]
-  (let [humidity (int (read-string (get sensor "humidity")))]
+  (let [humidity (float (read-string (get sensor "humidity")))]
     {"value" humidity}))
 
 (defn parse-tellstick-sensor [sensor]
