@@ -35,7 +35,7 @@
 
 (deftest parse-sensor-humidity
   (testing "Parsed data has correct humidity"
-    (is (= 36 (get-in (first (test-utils/measurement-filter "humidity" parsed-full-sensor-data)) [:fields "value"])))))
+    (is (= 36.0 (get-in (first (test-utils/measurement-filter "humidity" parsed-full-sensor-data)) [:fields "value"])))))
 
 (deftest parse-non-existing-sensor-humidity
   (testing "Parsed data doesn't have humidity when it's not in original input"
