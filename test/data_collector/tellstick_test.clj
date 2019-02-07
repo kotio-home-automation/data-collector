@@ -4,11 +4,11 @@
           [data-collector.tellstick :as tellstick]
           [data-collector.test-utils :as test-utils]))
 
-(def full-sensor-data (json/parse-string "{\"id\":123,\"name\":\"Olohuone\",\"temperature\":\"21.1\",\"humidity\":\"36\"}"))
+(def full-sensor-data (json/parse-string "{\"id\":123,\"name\":\"Olohuone\",\"temperature\":21.1,\"humidity\":36}"))
 
 (def parsed-full-sensor-data (tellstick/parse-tellstick-sensor full-sensor-data))
 
-(def minimal-sensor-data (json/parse-string "{\"id\":234,\"name\":\"Parveke\",\"temperature\":\"8.1\"}"))
+(def minimal-sensor-data (json/parse-string "{\"id\":234,\"name\":\"Parveke\",\"temperature\":8.1}"))
 
 (def parsed-minimal-sensor-data (tellstick/parse-tellstick-sensor minimal-sensor-data))
 

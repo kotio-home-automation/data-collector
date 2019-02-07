@@ -1,13 +1,13 @@
 (ns data-collector.tellstick)
 
 (defn- parse-humidity [sensor]
-  (let [humidity (float (read-string (get sensor "humidity")))]
+  (let [humidity (float (get sensor "humidity"))]
     {"value" humidity}))
 
 (defn parse-tellstick-sensor [sensor]
   (let [now (quot (System/currentTimeMillis) 1000)
     name {"name" (get sensor "name")}
-    temperature {"value" (float (read-string (get sensor "temperature")))}]
+    temperature {"value" (float (get sensor "temperature"))}]
     (if (nil? (get sensor "humidity"))
       [{:measurement "temperature" :tags name :fields temperature :timestamp now}]
       [
