@@ -30,12 +30,12 @@
 (deftest parse-humidity-value
   (testing "Parsed data has correct name and humidity reading"
     (is (= "Työhuone" (get-in (first (test-utils/measurement-filter "humidity" parsed-data)) [:tags "name"])))
-    (is (= 36 (get-in (first (test-utils/measurement-filter "humidity" parsed-data)) [:fields "value"])))))
+    (is (= 36.0 (get-in (first (test-utils/measurement-filter "humidity" parsed-data)) [:fields "value"])))))
 
 (deftest parse-pressure-value
   (testing "Parsed data has correct name and pressure reading"
     (is (= "Työhuone" (get-in (first (test-utils/measurement-filter "pressure" parsed-data)) [:tags "name"])))
-    (is (= 1001 (get-in (first (test-utils/measurement-filter "pressure" parsed-data)) [:fields "value"])))))
+    (is (= 1001.0 (get-in (first (test-utils/measurement-filter "pressure" parsed-data)) [:fields "value"])))))
 
 (deftest compose-ruuvitag-readings-empty
   (testing "Composing empty data set returns empty result"

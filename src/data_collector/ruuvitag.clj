@@ -4,8 +4,8 @@
   (let [now (quot (System/currentTimeMillis) 1000)
     name {"name" (get sensor "name")}
     temperature {"value" (float (get-in sensor ["data" "temperature"]))}
-    humidity {"value" (get-in sensor ["data" "humidity"])}
-    pressure {"value" (get-in sensor ["data" "pressure"])}]
+    humidity {"value" (float (get-in sensor ["data" "humidity"]))}
+    pressure {"value" (float (get-in sensor ["data" "pressure"]))}]
     [{:measurement "temperature" :tags name :fields temperature :timestamp now}
       {:measurement "humidity" :tags name :fields humidity :timestamp now}
       {:measurement "pressure" :tags name :fields pressure :timestamp now}]))
