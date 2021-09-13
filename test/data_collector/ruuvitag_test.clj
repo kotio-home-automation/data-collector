@@ -6,11 +6,15 @@
 
 (def sensor-data (json/parse-string "{\"name\":\"Työhuone\",\"data\":{\"temperature\":21,\"pressure\":1001,\"humidity\":36}}"))
 
+(def partial-sensor-data (json/parse-string "{\"name\":\"Työhuone\",\"data\":{\"temperature\":21,\"pressure:\":null,\"humidity\":36}}"))
+
 (def empty-data-set [])
 
 (def data-set-of-one [sensor-data])
 
 (def parsed-data (ruuvitag/parse-ruuvitag-sensor sensor-data))
+
+(def parsed-partial-data (ruuvitag/parse-ruuvitag-sensor partial-sensor-data))
 
 (deftest parse-sensor-count
   (testing "Parsed data has three items"
@@ -20,7 +24,7 @@
   (testing "Parsed data has one temperature, humidity and pressure reading"
     (is (= 1 (count (test-utils/measurement-filter "temperature" parsed-data))))
     (is (= 1 (count (test-utils/measurement-filter "humidity" parsed-data))))
-    (is (= 1 (count (test-utils/measurement-filter "pressure"parsed-data))))))
+    (is (= 1 (count (test-utils/measurement-filter "pressure" parsed-data))))))
 
 (deftest parse-temperature-value
   (testing "Parsed data has correct name and temperature reading"
@@ -36,6 +40,10 @@
   (testing "Parsed data has correct name and pressure reading"
     (is (= "Työhuone" (get-in (first (test-utils/measurement-filter "pressure" parsed-data)) [:tags "name"])))
     (is (= 1001.0 (get-in (first (test-utils/measurement-filter "pressure" parsed-data)) [:fields "value"])))))
+
+(deftest does-not-parse-pressure-value
+  (testing "Parsed data has no pressure reading"
+    (is (nil? (get-in (first (test-utils/measurement-filter "pressure" parsed-partial-data)) [:fields "value"])))))
 
 (deftest compose-ruuvitag-readings-empty
   (testing "Composing empty data set returns empty result"
