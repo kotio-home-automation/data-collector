@@ -1,4 +1,4 @@
-(defproject kotio-data-collector "0.1.0-SNAPSHOT"
+(defproject kotio-data-collector "0.2.0-SNAPSHOT"
   :description "Kotio home automation data collector."
   :url "https://github.com/jorilytter/kotio"
   :license {:name "MIT License"

@@ -3,7 +3,7 @@ Description=Kotio data-collector service
 After=network.target
 
 [Service]
-ExecStart=/usr/lib/jvm/java-9-openjdk-armhf/bin/java -Dconfig=/home/pi/kotio/data-collector/tykki_config.edn -jar /home/pi/kotio/data-collector/kotio-data-collector-0.1.0-SNAPSHOT-standalone.jar
+ExecStart=/usr/lib/jvm/java-9-openjdk-armhf/bin/java -Dconfig=/home/pi/kotio/data-collector/tykki_config.edn -jar /home/pi/kotio/data-collector/kotio-data-collector-0.2.0-SNAPSHOT-standalone.jar
 Restart=on-failure
 User=pi
 Group=pi
