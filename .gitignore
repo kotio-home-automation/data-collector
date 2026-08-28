@@ -12,3 +12,4 @@ pom.xml.asc
 /docker/data/data/
 /docker/data/meta/
 /docker/data/wal/
+.idea/
