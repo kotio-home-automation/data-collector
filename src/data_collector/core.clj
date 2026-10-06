@@ -27,7 +27,6 @@
 (defn- collect-data []
   (let [conf (conf/load-env)
         ruuvitag-data (fetch-data (:ruuvitag-url conf))
-        tellstick-sensor-data (fetch-data (:tellstick-sensor-url conf))
         tellstick-switch-data (fetch-data (:tellstick-switch-url conf))
         dirigera-lights-data (fetch-data (:dirigera-lights-url conf))
         dirigera-sensors-data (fetch-data (:dirigera-sensors-url conf))
@@ -35,7 +34,6 @@
         dirigera-water-sensors-data (fetch-data (:dirigera-water-sensors-url conf))]
     (save-data-points (flatten (concat
       (ruuvitag/compose-ruuvitag-readings (json/parse-string ruuvitag-data))
-      (tellstick/compose-tellstick-sensor-readings (json/parse-string tellstick-sensor-data))
       (tellstick/compose-tellstick-switch-readings (json/parse-string tellstick-switch-data))
       (dirigera/compose-dirigera-lights-readings (json/parse-string dirigera-lights-data))
       (dirigera/compose-dirigera-sensor-readings (json/parse-string dirigera-sensors-data))

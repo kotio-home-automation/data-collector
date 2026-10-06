@@ -1,20 +1,5 @@
 (ns data-collector.tellstick)
 
-(defn- parse-humidity [sensor]
-  (let [humidity (float (get sensor "humidity"))]
-    {"value" humidity}))
-
-(defn parse-tellstick-sensor [sensor]
-  (let [now (quot (System/currentTimeMillis) 1000)
-    name {"name" (get sensor "name")}
-    temperature {"value" (float (get sensor "temperature"))}]
-    (if (nil? (get sensor "humidity"))
-      [{:measurement "temperature" :tags name :fields temperature :timestamp now}]
-      [
-        {:measurement "temperature" :tags name :fields temperature :timestamp now}
-        {:measurement "humidity" :tags name :fields (parse-humidity sensor) :timestamp now}
-      ])))
-
 (defn parse-switch-data [switch measurement-name]
   (let [now (quot (System/currentTimeMillis) 1000)
     name {"name" (get switch "name")}
@@ -26,9 +11,6 @@
 
 (defn- parse-tellstick-switch-group [switch-group]
   (parse-switch-data switch-group "switchGroup"))
-
-(defn compose-tellstick-sensor-readings [sensors]
-  (map parse-tellstick-sensor sensors))
 
 (defn compose-tellstick-switch-readings [switches]
   (concat

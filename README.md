@@ -1,8 +1,8 @@
 # data-collector
 
-Data collector for kotio sensors and switches.
+Data collector for kotio switches.
 
-Collects sensor and swich data from kotio REST API's and saves it to [influxdb](https://www.influxdata.com/time-series-platform/influxdb/).
+Collects swich data from kotio REST API's and saves it to [influxdb](https://www.influxdata.com/time-series-platform/influxdb/).
 
 Written in clojure.
 
@@ -44,6 +44,6 @@ Stop service `systemctl stop kotio-data-collector.service`.
 
 ## License
 
-Copyright © 2017 Jori Lytter
+Copyright © 2017-2026 Jori Lytter
 
 Distributed under the MIT License.
